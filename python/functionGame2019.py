@@ -2,7 +2,7 @@
 # http://programarcadegames.com/python_examples/f.php?file=array_backed_grid.py
 
 # 1 - Import pygame library ####################################################
-import pygame
+import pygame, random
 from pygame.locals import *
 
 # 2 - Set game global variables ################################################
@@ -19,19 +19,28 @@ icon1 = pygame.image.load('../img/icon1.jpg').convert()
 icon2 = pygame.image.load('../img/icon2.jpg').convert()
 icon3 = pygame.image.load('../img/icon3.jpg').convert()
 
+xSize = 5
+ySize = 5
+
 # 3 - Define game functions ####################################################
 ## 3a - Initialize the game board
 def initBoard(): 
-  for row in range(5):
+  for row in range(ySize):
     grid.append([])
-    for column in range(5):
+    for column in range(xSize):
         grid[row].append(0) # all values set to 0
-  # Set hard-coded start locations for player and icons:        
+  # Set hard-coded start location for player
   grid[0][0] = 1  # player icon; value of 1 is player location
-  grid[0][2] = 10 # icon 0 location set by a value of 10
-  grid[3][1] = 11 # icon 1 location set by a value of 11
-  grid[2][2] = 12 # icon 2 location set by a value of 12
-  grid[4][3] = 13 # icon 3 location set by a value of 13
+
+  #Randomly set start location for icons
+  i = 10 #starts loop at code for icon 0
+  while i < 14: #loops until icon 3 code is reached
+      x = random.randrange(0,xSize) #randomly assign x cord
+      y = random.randrange(0,ySize) #randomly assign y cord
+      print(x,y)
+      if (grid[x][y] == 0): #if nothing is written to grid square already, assign it to icon i and continue
+        grid[x][y] = i
+        i += 1
 
 ## 3b - Draw player/icon on the board
 def drawIcon(rw,cl,iconName):
